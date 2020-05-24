@@ -16,6 +16,9 @@ import { ToastsContainer } from './shared/components/toasts-container/toasts-con
 import { UsersDetailComponent } from './users/users-detail/users-detail.component';
 import { DepartmentsService } from './shared/services/departments.service';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { LoadingInterceptor } from './shared/services/loading-interceptor.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,7 @@ import { PageNotFoundComponent } from './shared/components/page-not-found/page-n
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'users/:id', component: UsersDetailComponent, pathMatch: 'full' },
@@ -39,12 +43,14 @@ import { PageNotFoundComponent } from './shared/components/page-not-found/page-n
       { path: '**', redirectTo: '/404' }
     ]),
     NgbModule,
+    NgxSpinnerModule,
     ReactiveFormsModule
   ],
   providers: [
     UsersService,
     DepartmentsService,
-    ToastService
+    ToastService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
   entryComponents: [UsersDetailComponent]

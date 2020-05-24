@@ -1,26 +1,29 @@
-<table *ngIf="users?.length > 0; else noUsers" class="table mt-4">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Username</th>
-      <th scope="col">Department</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users">
-      <th scope="row">{{user.id}}</th>
-      <td>{{user.userName}}</td>
-      <td>{{user.departmentTitle}}</td>
-      <td>
-        <a [routerLink]="['/users', user.id]" class="btn btn-primary mx-2">Edit</a>
+<div *ngIf="!loading">
+  <table *ngIf="users?.length > 0; else noUsers" class="table mt-4">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Username</th>
+        <th scope="col">Department</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <th scope="row">{{user.id}}</th>
+        <td>{{user.userName}}</td>
+        <td>{{user.departmentTitle}}</td>
+        <td>
+          <a [routerLink]="['/users', user.id]" class="btn btn-primary mx-2">Edit</a>
           <button class="btn btn-danger mx-2" (click)="dropUser(user)">Delete</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-<ng-template #noUsers><div class="text-center">
-  <h3>There is no users</h3>
-</div></ng-template>
-
+  <ng-template #noUsers>
+    <div class="text-center">
+      <h3>There is no users</h3>
+    </div>
+  </ng-template>
+</div>
